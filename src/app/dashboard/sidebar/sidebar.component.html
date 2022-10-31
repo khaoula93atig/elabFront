@@ -1,0 +1,71 @@
+ <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion text-center p-0 m-0 ">
+  <div class="container-fluid d-flex flex-column">
+    <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+      <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
+      <div class="sidebar-brand-text mx-3"><span>Elab</span></div>
+    </a>
+    <hr class="sidebar-divider my-0">
+    <ul class="nav navbar-nav text-light w-100 text-center ml-auto " id="accordionSidebar">
+      <li class="nav-item"><a class="nav-link active"><i class="fa fa-home"></i> Acceuil</a></li>
+      <li class="nav-item" id="accordion">
+        <a class="nav-link" data-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false"
+           aria-controls="collapseOne" id="headingOne">
+          <i class="fa fa-users"></i> Utilisateurs</a>
+        <ul class="nav-item collapse accordion-body accordion-collapse collapse"  id="collapseOne" aria-labelledby="headingOne">
+          <li class="nav-item"><a class="nav-link" routerLink="/dashboard/listadmin" ><i class="fa fa-user" aria-hidden="true"></i> Adminstrateurs</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/dashboard/formEns"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Enseignants</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/dashboard/eleve"><i class="fa fa-child" aria-hidden="true"></i>Eleves</a></li>
+          <li class="nav-item"><a class="nav-link" href=#><i class="fas fa-restroom"></i> Parents</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item"><a class="nav-link" routerLink="/dashboard/calender" ><i class="fa fa-calendar"></i><span> Calendrier </span></a></li>
+
+      <li class="nav-item" >
+        <a class="nav-link" data-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+            aria-expanded="false" aria-controls="collapseTwo" id="headingTwo">
+          <i class="fa fa-book"></i> Cours </a>
+        <ul class="nav-item collapse accordion-body accordion-collapse"  id="collapseTwo" aria-labelledby="headingTwo">
+          <li class="nav-item"><a class="nav-link" routerLink="/dashboard/cours" ><i class="fa fa-folder-open" aria-hidden="true"></i> Supports du cours </a></li>
+          <li class="nav-item"><a class="nav-link"><i class="fa fa-briefcase" aria-hidden="true"></i> Devoirs </a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item" >
+        <a class="nav-link" data-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+            aria-expanded="false" aria-controls="collapseOne" id="headingThree">
+          <i class="fas fa-school"></i>Gestion de l'ecole </a>
+        <ul class="nav-item collapse accordion-body accordion-collapse"  id="collapseThree" aria-labelledby="headingThree">
+          <li class="nav-item"><a class="nav-link" routerLink="/dashboard/list" ><i class="fa fa-tasks" aria-hidden="true"></i> Matiéres </a></li>
+          <li class="nav-item"><a class="nav-link" href=#><i class="fa fa-list-ol" aria-hidden="true"></i> Niveaux </a></li>
+
+        </ul>
+      </li>
+
+      <li class="nav-item" >
+        <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapseFor"
+           data-toggle="collapse" aria-expanded="false" aria-controls="collapseOne" id="headingFor">
+          <i class="fas fa-chalkboard-teacher"></i>Gestion des éléves  </a>
+        <ul class="nav-item collapse"  id="collapseFor" aria-labelledby="headingFor">
+          <li class="nav-item"><a class="nav-link" routerLink="/dashboard/enfant" ><i class="fa fa-users"></i>Groupes </a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/dashboard/list"><i class="fa fa-sort-numeric-up" aria-hidden="true"></i>Notes </a></li>
+          <li class="nav-item"><a class="nav-link" href=#><i class="fa fa-pen-square" aria-hidden="true"></i> Remarques </a></li>
+
+        </ul>
+      </li>
+      <li class="nav-item"><a class="nav-link" href=" "><i class="fa fa-calculator" aria-hidden="true"></i><span> Comptabilité</span></a></li>
+      <li class="nav-item"><a class="nav-link" href=" "><i class="fa fa-address-book"></i><span> Contactes</span></a></li>
+      <li class="nav-item"><a class="nav-link" href=" "><i class="fa fa-cog"></i><span> Paramètres</span></a></li>
+
+
+    </ul>
+    <div class="text-center d-none d-md-inline">
+      <button class="btn rounded-circle border-0" id="sidebarToggle" type="button" (click)="onclick()"></button>
+    </div>
+  </div>
+
+</nav>
+
+
+
+

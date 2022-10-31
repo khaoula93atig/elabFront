@@ -1,0 +1,99 @@
+<div class="hauteur" style="background:#abdbe3 ">
+  <div class="container">
+    <div class="row justify-content-center pt-5">
+      <div class="col-md-9 col-lg-12 col-xl-10">
+        <div class="card shadow-lg o-hidden border-0 my-5">
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-lg-6 d-none d-lg-flex">
+                <div class="flex-grow-1 bg-login-image"
+                     style="background-image: url('assets/img/Académie ELAB.jpg');"></div>
+              </div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h4 class="text-danger font-weight-bold mb-4">Bienvenue !</h4>
+                  </div>
+                  <form class="user" [formGroup]="loginform">
+                    <div class="form-group">
+                      <input class="form-control form-control-user" type="text" id="exampleInputEmail"
+                             aria-describedby="emailHelp" placeholder="login" name="login"
+                             formControlName="login"
+                             [ngClass]="{
+              'is-valid': loginform.get('login').valid,
+              'is-invalid': loginform.get('login').invalid  && (loginform.get('login').touched || loginform.get('login').dirty)}">
+                      <div
+                        *ngIf="loginform.get('login').invalid && (loginform.get('login').touched || loginform.get('login').dirty)"
+                        Class="invalid-feedback">
+                        <div *ngIf="loginform.get('login').getError('required')">champs obligatoire!</div>
+                      </div>
+                    </div>
+                    <div class="form-group inner-addon right-addon">
+                      <div class="input-group-prepend">
+                        <input class="form-control form-control-user" [type]="showPassword ? 'text' : 'password'"
+                               id="exampleInputPassword" placeholder="Mot de passe" name="password"
+                               formControlName="password"
+                               [ngClass]="{
+              'is-valid': loginform.get('password').valid,
+              'is-invalid': loginform.get('password').invalid  && (loginform.get('password').touched || loginform.get('password').dirty)}">
+                        <div>
+                          <i alt="show" class="far fa-eye eye-show"
+                             (click)="showPassword = !showPassword"
+                             [class.hide]="showPassword"></i>
+                          <i alt="hide" class="far fa-eye-slash eye-hide"
+                             (click)="showPassword = !showPassword"
+                             [class.hide]="!showPassword"></i>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="loginform.get('password').invalid && (loginform.get('password').touched || loginform.get('password').dirty)"
+                        Class="invalid-feedback">
+                        <div *ngIf="loginform.get('password').getError('required')">champs obligatoire!</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="custom-control custom-checkbox small">
+                        <div class="form-check"><input class="form-check-input custom-control-input" type="checkbox"
+                                                       id="formCheck-1"><label
+                          class="form-check-label custom-control-label" for="formCheck-1">Remember Me</label></div>
+                      </div>
+                    </div>
+                    <button class="btn btn-info btn-login btn-block text-white btn-user"
+                            style="color: #abdbe3; border-color: #abdbe3 " type="submit" (click)="connection()">Login
+                    </button>
+                    <hr>
+                    <a class="btn btn-primary btn-block text-white btn-google btn-user" role="button"
+                       (click)="mdpoublier()">Mot de passe oublier ?</a>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p-dialog header="Mot de passe oublier?" [modal]="true" [draggable]="false" [resizable]="false"
+          [(visible)]="displayBasic2" [style]="{width: '30vw'}" [baseZIndex]="10000">
+  <form [formGroup]="mdpForm">
+    <div class="mb-3">
+      <label class="form-label">login</label>
+      <input type="text" class="form-control" formControlName="login" [ngClass]="{
+              'is-valid': mdpForm.get('login').valid,
+              'is-invalid': mdpForm.get('login').invalid  && (mdpForm.get('login').touched || mdpForm.get('login').dirty)}">
+
+      <div *ngIf="mdpForm.get('login').invalid && (mdpForm.get('login').touched || mdpForm.get('login').dirty)"
+           Class="invalid-feedback">
+        <div *ngIf="mdpForm.get('login').getError('required')">champs obligatoire!</div>
+      </div>
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <button class=" btn btn-info" type="submit" (click)="envoyermail()">Envoyer mail</button>
+    <button class=" btn btn-danger" (click)="displayBasic2=false">Annuler</button>
+  </ng-template>
+</p-dialog>

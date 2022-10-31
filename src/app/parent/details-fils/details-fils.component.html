@@ -1,0 +1,29 @@
+<div class="card mt-5 min-vh-75 ">
+  <div class="card-header text-center">
+    <h2>Paiement pour votre enfant
+      : {{eleve.utilisateur.nom | titlecase}} {{eleve.utilisateur.prenom | titlecase}}
+    </h2>
+  </div>
+  <div class="card-body w-100">
+    <!--<ul class="heroes row">
+      <li class="col-3 mr-1" *ngFor="let hero of payements">
+        <button [class.selected]="selectedCities.includes(hero)" type="button" (click)="setlist(hero)">
+          <span class="badge">{{hero.titre}}</span>
+          <span class="name">{{hero.date |date: 'dd/MM/yyyy'}}</span>
+        </button>
+      </li>
+    </ul>-->
+    <mat-grid-list  cols="2" rowHeight="100px">
+      <mat-grid-tile class="heroes" *ngFor="let hero of payements">
+        <button [class.selected]="selectedCities.includes(hero)" type="button" (click)="setlist(hero)">
+          <span class="badge">{{hero.titre}}</span>
+          <span class="name">{{hero.date |date: 'dd/MM/yyyy'}}</span>
+        </button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <div class="card-footer text-right">
+    <button (click)="payer()">payer</button>
+    <a class="btn btn-danger">Annuler</a>
+  </div>
+</div>

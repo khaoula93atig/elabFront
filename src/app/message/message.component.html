@@ -1,0 +1,18 @@
+<div style="min-width: 100%; min-height: 480px;" class="message-col card ml-0">
+  <mat-list id="msg-container" class="message-container">
+    <mat-list-item *ngFor="let message of filteredMessages" class="message-item"
+                   [style.background]="names[0] === username ? 'rgba(80,150,220, 0.4)':'rgba(150,150,150, 0.3)'">
+      <mat-icon mat-list-icon>chat</mat-icon>
+      <h4 mat-line><b>{{getLabel(names,message)}}</b>: {{message.content}}</h4>
+    </mat-list-item>
+  </mat-list>
+</div>
+
+<div style="min-width:100%; height: 40px;">
+  <mat-form-field style="width: 85%;">
+    <input matInput placeholder="Nouveau message" [disabled]="channel === null || channel === undefined"
+           class="message-input rounded " [(ngModel)]="newMessage" (keyup)="$event.keyCode == 13 ? sendMessage() : null">
+  </mat-form-field>
+  <button mat-raised-button class="btn-outline-info btn rounded" [disabled]="channel === null || channel === undefined" style="width: 13%;"
+          (click)="sendMessage()"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+</div>

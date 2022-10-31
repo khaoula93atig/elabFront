@@ -1,0 +1,66 @@
+<div class="min-vh-100">
+<div class="mt-3 mb-3">
+  <h1>Liste des supports de cours </h1>
+</div>
+<div class="row justify-content-center">
+    <div class="form-group col-6">
+      <select  class="form-control border-2 border-info"
+      [(ngModel)]="groupe"  (change)="GetAllByGroupe(groupe)">
+      <option  value="" selected="selected">Sélectionner un groupe</option>
+      <option *ngFor="let grp of groupes" [value]="grp.nom" >{{grp.nom}}</option>
+      </select>
+    </div>
+    <div class="form-group col-6">
+        <select  class="form-control border-2 border-info"
+        [(ngModel)]="enseignant"  (change)="GetAllByEnseignant(enseignant)">
+        <option  value="" selected="selected">Select un enseignant</option>
+        <option *ngFor="let ens of enseignants" [value]="ens.id" >{{ens.utilisateur.nom}} {{ens.utilisateur.prenom}}</option>
+      </select>
+      </div>
+</div>
+
+
+    <div class="card shadow" *ngIf="groupe!='' || enseignant != null">
+        <div class="card-header py-3">
+            <p class="text-info m-0 font-weight-bold"> Liste des cours</p>
+        </div>
+        <div class="card-body">
+            <div class="">
+                <div class="text-md-right dataTables_filter" id="dataTable_filter"><label><input type="search"
+                                                                                                 class="form-control form-control-sm"
+                                                                                       aria-controls="dataTable"
+                                                                                                 placeholder="Search"></label>
+                </div>
+              </div>
+              <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                <table class="table my-0" id="dataTable">
+                  <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Fichier</th>
+                    <th *ngIf="groupe != '' && enseignant == null">Enseignant</th>
+                    <th *ngIf="enseignant != null && groupe == null">Groupes</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let c of cours;  let index = index">
+                    <td>{{c.nomcours}}</td>
+                    <td>{{c.description}}</td>
+                    <td><a target="_blank" href="{{c.fichier}}"><i class="fa fa-file-text" aria-hidden="true"></i>&nbsp;{{c.fullname}}</a></td>
+                    <td *ngIf="groupe != '' && enseignant == null">{{c.enseignant.utilisateur.nom}} {{c.enseignant.utilisateur.prenom}}
+                    </td>
+                    <td *ngIf="enseignant != null && groupe == null">
+                        <ul>
+                            <li *ngFor="let grp of c.groupes"> {{grp.nom}}</li>
+                         </ul>
+                    </td>
+                  </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
+          </div>
+        </div>
+</div>

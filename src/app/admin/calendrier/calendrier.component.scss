@@ -1,0 +1,24 @@
+@import '~@fullcalendar/common/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+.p-button-info{
+  background: #2a96a5;
+  border-color: #2a96a5;
+}
+.p-button-info:disabled{
+  background: #2a96a5;
+  border-color: #2a96a5;
+  cursor: pointer;
+}
+.my-ng-fullcalendar{
+  width:100%;
+}
+
+
+.test .fc.fc-daygrid-day.fc-day-today {
+    background-color: rgb(229, 100, 225);
+  }
+.test .fc-theme-standard .fc-toolbar .fc-button{
+    background : #2a96a5;
+  }
+
+

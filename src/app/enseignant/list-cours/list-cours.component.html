@@ -1,0 +1,161 @@
+<div class="min-vh-100">
+<button class="btn btn-outline-info mt-3 mb-3 " routerLink="/enseignant/ajout-cours"><i class="fa fa-plus"></i> Ajouter
+    cours
+  </button>
+  <div class="card shadow">
+    <div class="card-header py-3">
+      <p class="text-info m-0 font-weight-bold"> Liste des cours</p>
+    </div>
+    <div class="card-body">
+      <div class="">
+        <div class="text-md-right dataTables_filter" id="dataTable_filter"><label><input type="search"
+                                                                                         class="form-control form-control-sm"
+                                                                                         aria-controls="dataTable"
+                                                                                         placeholder="Search"></label>
+        </div>
+      </div>
+
+      <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+        <table class="table my-0" id="dataTable">
+          <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Fichier</th>
+            <th>Groupes</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let c of cours;  let index = index">
+            <td>{{c.nomcours}}</td>
+            <td>{{c.description}}</td>
+            <td><a target="_blank" href="{{c.fichier}}"><i class="fa fa-file-text" aria-hidden="true"></i>&nbsp;{{c.fullname}}</a></td>
+            <td>
+                <ul>
+                   <li *ngFor="let grp of c.groupes"> {{grp.nom}}</li>
+                </ul>
+            </td>
+            <td>
+                <button class="btn btn-info mr-1" data-toggle="modal" data-target="#exampleModalCenter" (click)="getbyid(cours[index])">
+                  <i class="fa fa-pencil-alt"></i></button>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="getbyid(cours[index])"><i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalCenter"  tabindex="-1" role="dialog"  aria-labelledby="exampleModalCenterTitle"     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modifier cours</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="editForm">
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label><strong>Nom</strong></label>
+                  <input class="form-control" formControlName="nomcours" type="text" [(ngModel)]="coursup.nomcours" required/>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label><strong>Description</strong></label>
+                  <textarea class="form-control" formControlName="description" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="coursup.description" required></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label><strong>Groupes</strong></label>
+                  <div>
+                    <mat-form-field style="width: 400px " appearance="fill">
+                      <mat-label>choisir un groupe</mat-label>
+                      <mat-select
+                        disabled="false"
+                        multiple="true"
+                        formControlName="groupes"
+                        [(ngModel)]="selected">
+
+                        <mat-option *ngFor="let grp of groupes" [value]="grp.nom" >{{grp.nom}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <!--<ng-select class="form-control"
+                   disabled="false"
+                   multiple="true"
+                             formControlName="groupes"
+                   [(ngModel)]="selected"
+                    >
+                    <ng-option *ngFor="let grp of groupes" [value]="grp.nom" >{{grp.nom}}</ng-option>
+                  </ng-select>-->
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-info" data-dismiss="modal" (click)="modifier()">Modifier</button>
+        </div>
+        <div class="modal-body">
+        <form [formGroup]="editForm">
+          <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label><strong>Document</strong></label>
+              <div>
+              <a href="{{coursup.fichier}}">
+                <i class="fa fa-download" aria-hidden="true"></i>
+                {{nomfichier}}</a>
+              </div>
+              <input class="form-control" #fileUpload formControlName="fichier" id="file-upload-document" (change)="onSelectFile($event)" type="file" id="formFile">
+             </div>
+          </div>
+          </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-info" data-dismiss="modal" (click)="modifierCours()">Modifier</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Suppression</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Êtes-vous certain de vouloir supprimer ce cours?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="archiverCours()">Oui</button>
+          <button type="button" class="btn btn-danger">Non</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

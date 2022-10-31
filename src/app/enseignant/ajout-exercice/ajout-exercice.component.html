@@ -1,0 +1,114 @@
+<div class="container-fluid">
+
+  <div class="row justify-content-center">
+
+    <div class="col-12 col-lg-10 col-xl-10">
+      <div class="header mt-md-5">
+        <div
+          class="
+            header-body
+            d-flex
+            justify-content-between
+            align-items-center
+            pt-0
+          "
+        >
+          <div class="row align-items-center">
+            <div class="col">
+              <h1 class="header-title text-info ml-auto">Ajouter exercice</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="card shadow mb-3">
+    <div class="card-header py-3">
+    </div>
+    <div class="card-body">
+
+      <!-- Form -->
+      <form class="py-6" #form="ngForm">
+        <div class="row justify-content-center">
+          <div class="form-group col-lg-10">
+            <!-- Label -->
+            <label class="form-label ">Titre</label>
+            <!-- Input -->
+            <input type="text" class="form-control" [(ngModel)]="devoir.titre" required/>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="form-group col-lg-10">
+            <!-- Label -->
+            <label class="form-label ">Description</label>
+            <!-- Input -->
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="devoir.description" required></textarea>
+          </div>
+        </div>
+
+
+        <div class="row justify-content-center">
+          <div class="form-group col-lg-10">
+            <!-- Label -->
+            <label class="form-label ">Deadline</label>
+            <!-- Input -->
+            <input type="date" class="form-control" placeholder="yyyy-MM-dd" [(ngModel)]="devoir.deadline" required/>
+
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="form-group col-lg-10">
+            <!-- Label -->
+            <label class="form-label ">Groupes</label>
+            <div>
+              <mat-form-field style="width: 940px" appearance="fill">
+                <mat-label>choisir un groupe</mat-label>
+                <mat-select
+                           disabled="false"
+                           multiple="true"
+                           [(ngModel)]="selected">
+
+                  <mat-option *ngFor="let grp of groupes" [value]="grp.nom" >{{grp.nom}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- Input
+            <ng-select class="form-control"
+              disabled="false"
+            multiple="true"
+              [(ngModel)]="selected"
+              >
+
+              <ng-option *ngFor="let grp of groupes" [value]="grp.nom" >{{grp.nom}}</ng-option>
+            </ng-select>-->
+
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="form-group mb-3 col-lg-10">
+            <!-- Label -->
+            <label class="form-label ">Document</label>
+           <input class="form-control" #fileUpload id="file-upload-document" (change)="onSelectFile($event)"  type="file" id="formFile">
+          </div>
+        </div>
+        <div class="btn-group align-items-center justify-content-end float-right">
+          <div class="">
+            <!-- Button -->
+            <button class="btn btn-danger" type="reset">
+              Annuler
+            </button>
+          </div>
+
+          <div class="col-auto">
+            <!-- Button -->
+            <button class="btn btn-info " [disabled]="!form.touched || !form.valid" (click)="ajout()">Ajouter</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+

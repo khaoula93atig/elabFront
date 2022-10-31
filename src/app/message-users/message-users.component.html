@@ -1,0 +1,12 @@
+<mat-list role="list" class="scrollbar" id="style-4">
+  <mat-list-item role="listitem" *ngFor="let user of getOtherUsers()"
+                 [ngClass]="getUserItemClass(user)"
+                 (click)="startChatWithUser(user)">
+    <div mat-list-icon>
+
+      <img class="rounded-circle" src="{{user.photo}}">
+
+    </div>
+    <h4 mat-line>{{user.nom}} {{user.prenom}}</h4>
+  </mat-list-item>
+</mat-list>

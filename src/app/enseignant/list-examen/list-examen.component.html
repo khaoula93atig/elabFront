@@ -1,0 +1,239 @@
+<button class="btn btn-outline-info mt-3 mb-3 " routerLink="/enseignant/ajout-examen"><i class="fa fa-plus"></i> Ajouter
+  examen
+</button>
+<div class="card shadow">
+  <div class="card-header py-3">
+    <p class="text-info m-0 font-weight-bold"> Liste des examens</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="form-group col-lg-10">
+    <select  class="form-control border-2 border-info" 
+      [(ngModel)]="g"  (change)="GetList(g,type.Evaluation,enseignant.id)">
+      <option  value="" selected="selected">Select un groupe</option>
+      <option *ngFor="let grp of groupes" [value]="grp.nom" >{{grp.nom}}</option>
+    </select>
+    </div>
+    </div>
+
+  <div class="card-body">
+    <div class="">
+      <div class="text-md-right dataTables_filter" id="dataTable_filter"><label><input type="search"
+                                                                                       class="form-control form-control-sm"
+                                                                             aria-controls="dataTable"
+                                                                                       placeholder="Search"></label>
+      </div>
+    </div>
+
+    <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+      <table class="table my-0" id="dataTable">
+        <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Fichier</th>
+          <th>Deadline</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let e of exams;  let index = index">
+          <td>{{e.titre}}</td>
+          <td><a target="_blank" href="{{e.fichier}}"><i class="fa fa-file-text" aria-hidden="true"></i>&nbsp;{{e.fullname}}</a></td>
+          <td>{{e.deadline | date: 'yyyy-MM-dd'}}</td>
+             <td>
+              <button class="btn btn-info mr-1" data-toggle="modal" data-target="#exampleModalCenter" (click)="getbyid(exams[index])"
+                      >
+                <i class="fa fa-pencil-alt"></i></button>
+              <button class="btn btn-danger mr-1" data-toggle="modal" data-target="#exampleModal" (click)="getbyid(exams[index])"><i class="fa fa-trash"></i></button>
+
+              <button class="btn btn-primary" class="btn btn-info mr-1" data-toggle="modal" data-target="#exampleModalCenter1"  (click)="getbyid(exams[index])" (click)="getalltravaux(test,g)">
+                <i class="fa fa-file"></i></button>
+            </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div class="col-md-6 align-self-center">
+        <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
+      </div>
+      <div class="col-md-6">
+        <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+          <ul class="pagination">
+            <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalCenter"  tabindex="-1" role="dialog"  aria-labelledby="exampleModalCenterTitle"     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modifier examen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editForm">
+          <div class="form-row">
+            <div class="col">
+              <div class="form-group">
+                <label><strong>Titre</strong></label>
+                <input class="form-control" formControlName="titre" type="text" [(ngModel)]="examup.titre" required/>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col">
+              <div class="form-group">
+                <label><strong>Deadline</strong></label>
+                <input class="form-control" formControlName="deadline"  [ngModel]="examup.deadline | date: 'yyyy-MM-dd'" />
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col">
+              <div class="form-group">
+                <label><strong>Groupes</strong></label>
+                <ng-select class="form-control"
+                 disabled="false"
+                 multiple="true"
+                           formControlName="groupes"
+                 [(ngModel)]="selected"
+                  >
+                  <ng-option *ngFor="let grp of groupes" [value]="grp.nom" >{{grp.nom}}</ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal" (click)="modifier()">Modifier</button>
+      </div>
+      <div class="modal-body">
+      <form [formGroup]="editForm">
+        <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label><strong>Document</strong></label>
+            <div>
+            <a href="{{examup.fichier}}">
+              <i class="fa fa-download" aria-hidden="true"></i>
+              {{nomfichier}}</a>
+            </div>
+            <input class="form-control" #fileUpload formControlName="fichier" (change)="onSelectFile($event)" id="file-upload-document"  type="file" id="formFile">
+           </div>
+        </div>
+        </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal" (click)="modifierExamen()">Modifier</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Suppression</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Êtes-vous certain de vouloir supprimer cet examen?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="archiverExamen()">Oui</button>
+        <button type="button" class="btn btn-danger">Non</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle"><b>Liste des comptes rendu</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+          <table class="table my-0" id="dataTable">
+              <thead>
+                  <tr>
+                    <th>Eleve</th>
+                    <th>Fichier</th>
+                    <th>Action</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let t of travaux;  let index = index">
+                  <td>{{t.eleve.utilisateur.nom}} {{t.eleve.utilisateur.prenom}}</td>
+                  <td><a target="_blank" href="{{t.fichier}}"><i class="fa fa-file-text" aria-hidden="true"></i>&nbsp;{{t.fullname}}</a></td>
+                  
+                     <td>
+                      <button class="btn btn-info mr-1" data-toggle="modal" data-dismiss="modal" data-target="#exampleModal1"  (click)="getCR(travaux[index])">
+                        <i class="fa fa-pencil-alt"></i></button>                
+                      </td>
+                </tr>
+        
+                </tbody>
+          </table>
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><b>Affecter note</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="remarque">
+          <option  value="" selected="selected">Affecter une note</option>
+          <option>passable</option>
+           <option> assez_bien</option>
+            <option>bien</option>
+            <option>trés_bien</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="evaluer()">Affecter</button>
+        <button type="button" class="btn btn-danger">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+

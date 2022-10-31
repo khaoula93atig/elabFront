@@ -1,0 +1,159 @@
+<div class="row mb-3 mt-3" >
+
+  <div class="col-6 text-left" style="float: left">
+    <button class="btn btn-outline-info" xmlns="http://www.w3.org/1999/html" routerLink="/admin/ajoutgroupe">
+      <i class="fa fa-plus"></i> Ajouter groupe
+    </button>
+  </div>
+  <div class="col-6 mr-0" >
+    <div class="card shadow border-left-danger mr-0 ml-lg-5 w-50" style="float: right">
+      <div class="card-body">
+        <div class="row align-items-center no-gutters">
+          <div class="col">
+            <div class="text-dark font-weight-bold"><span>Groupe complet</span></div>
+          </div>
+          <div class="col-auto"><i class="bi bi-circle-fill text-danger"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="card shadow">
+  <div class="card-header py-3">
+    <p class="text-info m-0 font-weight-bold">Liste des groupes</p>
+  </div>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>N</th>
+      <th>Nom</th>
+      <th>Matiere</th>
+      <th>Capacité</th>
+      <th>Type</th>
+      <th>Eléve</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let grp of groupes ; let index=index">
+      <td>{{index+1}}</td>
+      <td><i class="bi bi-circle-fill text-danger" *ngIf="grp.max==grp.eleves.length"></i> {{grp.nom}}</td>
+      <td>{{grp.matiere.nommatiere}}({{grp.matiere.nomniveau}})</td>
+      <td>{{grp.eleves.length}}/{{grp.max}}</td>
+      <td>{{grp.groupeType.type}}</td>
+      <td *ngIf="grp.max==1"><p *ngFor="let e of grp.eleves">{{e.utilisateur.nom | titlecase }} {{e.utilisateur.prenom | titlecase }}</p></td>
+      <td *ngIf="grp.max!=1"><button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getbyid(groupes[index])"> <i class="bi bi-list-stars"></i></button></td>
+      <td>
+      <button class="btn btn-info mr-1" data-toggle="modal" data-target="#exampleModalCenter" (click)="getbyid(groupes[index])"><i class="fa fa-pencil-alt"></i></button>
+      <button class="btn btn-danger mr-1" data-toggle="modal" data-target="#exampleModal" (click)="getbyid(groupes[index])"><i class="fa fa-trash"></i></button>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Liste des éléves du groupe :
+          <p class="font-weight-bold text-info justify-content-center">{{groupe.nom}}</p></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body justify-content-center">
+        <ol class=" list-group list-group-numbered ">
+          <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let el of groupe.eleves; let i= index">
+            <div class="ms-2 me-auto">
+            {{el.utilisateur.nom | titlecase}} {{el.utilisateur.prenom | titlecase}}
+            </div>
+            <a class="text-danger " data-toggle="modal" data-bs-dismiss="modal" data-target="#exampleModal1" (click)="geteleve(groupe.eleves[i])">
+              Retirer du groupe
+            </a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Suppression !!!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Etes-vous sure de retirer l'éleve {{eleveuser.nom | titlecase}} {{eleveuser.prenom | titlecase}} du groupe {{groupe.nom}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="retirer()">Oui</button>
+        <button type="button" class="btn btn-danger">Non</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLongTitle">Modifier le groupe :
+        <br>
+        {{ groupe.nom | titlecase }}</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <button class="btn btn-outline-info mr-1" data-toggle="modal" data-dismiss="modal" data-target="#exampleModal3" *ngIf="groupe.max!=1">Modifier capacité du groupe</button>
+        <button class="btn btn-outline-info" data-toggle="modal" data-dismiss="modal" data-target="#exampleModal2">Vider la liste du groupe</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Suppression !!!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Etes-vous sure de vider la liste des éléves du groupe {{groupe.nom}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="viderliste()">Oui</button>
+        <button type="button" class="btn btn-danger">Non</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel3">Modifier la taille du groupe {{groupe.nom}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>Capacité Maximale du groupe</label>
+        <input type="number" class="form-control" [(ngModel)]="maximum">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal" (click)="modifiercapacite()">Modifier</button>
+        <button type="button" class="btn btn-danger">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>

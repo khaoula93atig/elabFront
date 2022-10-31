@@ -1,0 +1,20 @@
+.file{
+  position: absolute;
+  bottom: 0;
+  outline: none;
+  color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: 0.5s;
+
+  font-size: 10px;
+}
+.file::-webkit-file-upload-button{
+  visibility: hidden;
+}
+input[type="file"]{
+  display: none;
+
+
+}

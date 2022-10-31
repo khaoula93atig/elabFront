@@ -1,0 +1,18 @@
+.header{
+    background-color: red;
+  }
+  .p-button-info{
+    background: #2a96a5;
+    border-color: #2a96a5;
+  }
+  .p-button-info:disabled{
+    background: #2a96a5;
+    border-color: #2a96a5;
+    cursor: pointer;
+  }
+.my-ng-fullcalendar{
+  width:100%;
+}
+input:disabled{
+  background: white;
+}

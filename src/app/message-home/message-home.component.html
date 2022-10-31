@@ -1,0 +1,33 @@
+<div class="main-container">
+  <div class="header-container">
+    <mat-grid-list cols="8" rowHeight="80px">
+      <mat-grid-tile colspan="2">
+        <div class="row" style="position: absolute; left: 0px;">
+          <!--<img class="border ml-3" src="assets/img/Académie%20ELAB.jpg">-->
+          <div class="sidebar-brand-icon ml-3 rotate-n-15 mr-0"><i class="bi bi-lightbulb fa-2x text-light text-center font-weight-bold"></i></div>
+          <div class="sidebar-brand-text mx-3 ml-0"><h1 class="text-center font-weight-bold text-light"> Elab Académie</h1></div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="4">
+        <div *ngIf="receiver !== null && receiver !== undefined && receiver !== ''" class="receiver-header">Discussion avec {{destinataire.nom}} {{destinataire.prenom}}</div>
+      </mat-grid-tile>
+      <mat-grid-tile class="user-header" colspan="1">
+        <button mat-raised-button><img class="border rounded-circle img-profile " src="{{user.photo}}"> {{user.nom}} {{user.prenom}}</button>
+        <!--<div class="col mr-0 text-right "><i class=" fas fa-sign-out-alt text-light" aria-hidden="true"></i></div>-->
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1">
+        <button class="btn btn-outline-info btn-lg mr-0 text-right "(click)="back()"><i class=" fas fa-sign-out-alt" aria-hidden="true"></i></button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+  <mat-grid-list class="chat-table min-vh-100" cols="10" rowHeight="580" gutterSize="20">
+    <mat-grid-tile class="user-list-col rounded wt-justify" [colspan]="2" [style.vertical-align]="'top'">
+      <app-message-users [username]="username" class="user-container" (receiverUpdated)="onReceiverChange($event)">
+      </app-message-users>
+    </mat-grid-tile>
+    <mat-grid-tile class="wt-justify ml-0" [colspan]="8">
+      <app-message [names]="names"  class="message-wrapper"></app-message>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

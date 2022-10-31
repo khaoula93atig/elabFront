@@ -1,0 +1,121 @@
+<div class="min-vh-100 mt-3">
+  <h1>Liste des exercices </h1>
+<div class="row justify-content-center">
+<div class="form-group col-lg-10">
+<select  class="form-control border-2 border-info"
+  [(ngModel)]="groupe"  (change)="GetAll(groupe,type.Exercice)">
+  <option  value="" selected="selected">Choisir un groupe</option>
+  <option *ngFor="let grp of groupes" [value]="grp.nom" >{{grp.nom}}</option>
+</select>
+</div>
+</div>
+
+
+  <div class="card shadow" *ngIf="groupe!=''">
+
+    <div class="row justify-content-center" >
+
+      <div class="col-3 col-auto">
+        <div class="card shadow border-left-success">
+          <div class="card-body">
+            <div class="row align-items-center no-gutters">
+              <div class="col">
+                <div class="text-dark font-weight-bold mb-0"><span>Travail ajouté</span></div>
+              </div>
+              <div class="col-auto"><i class="bi bi-circle-fill text-success"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-3 col-auto">
+        <div class="card shadow border-left-warning">
+          <div class="card-body">
+            <div class="row align-items-center no-gutters">
+              <div class="col">
+                <div class="text-dark font-weight-bold mb-0"><span>Travail non ajouté</span></div>
+              </div>
+              <div class="col-auto"><i class="bi bi-circle-fill text-warning"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-3 col-auto">
+        <div class="card shadow border-left-danger">
+          <div class="card-body">
+            <div class="row align-items-center no-gutters">
+              <div class="col">
+                <div class="text-dark font-weight-bold mb-0"><span>Deadline dépassé</span></div>
+              </div>
+              <div class="col-auto"><i class="bi bi-circle-fill text-danger"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="card-header py-3">
+        <p class="text-info m-0 font-weight-bold"> Liste des exercices</p>
+    </div>
+
+
+    <div class="card-body">
+        <div class="">
+            <div class="text-md-right dataTables_filter" id="dataTable_filter"><label><input type="search"
+                                                                                             class="form-control form-control-sm"
+                                                                                   aria-controls="dataTable"
+                                                                                             placeholder="Search"></label>
+            </div>
+          </div>
+
+        <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+            <table class="table my-0" id="dataTable">
+                <thead>
+                    <tr>
+                      <th>Titre</th>
+                      <th>Fichier</th>
+                      <th>Deadline</th>
+                      <th>Enseignant</th>
+                      <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let aff of affichage;  let index = index">
+                      <td><i class="bi bi-circle-fill text-success" *ngIf="aff.status == 1"></i>
+                        <i class="bi bi-circle-fill text-warning" *ngIf="aff.status == 2"></i><i class="bi bi-circle-fill text-danger" *ngIf="aff.status == 3"></i>{{aff.nom}}</td>
+                      <td><a target="_blank" href="{{aff.fichier}}"><i class="fa fa-file-text" aria-hidden="true"></i>&nbsp;{{aff.fichier}}</a></td>
+                      <td>{{aff.deadline | date: 'yyyy-MM-dd'}}</td>
+                      <td>{{aff.enseignant.utilisateur.nom}} {{aff.enseignant.utilisateur.prenom}}
+                         </td>
+                         <td>
+                          <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal" routerLink="/eleve/ajoutCompteRendu/{{aff.nom}}" >
+                            <i class="fa fa-file"></i></button>
+                        </td>
+                    </tr>
+
+                    </tbody>
+            </table>
+        </div>
+        <div class="row">
+          <div class="col-md-6 align-self-center">
+            <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
+          </div>
+          <div class="col-md-6">
+            <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+              <ul class="pagination">
+                <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion  p-0 w-100 m-0">
+  <div class="container-fluid d-flex flex-column">
+    <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+      <div class="sidebar-brand-icon rotate-n-15 mr-0"><i class="bi bi-lightbulb"></i></div>
+      <div class="sidebar-brand-text mx-3 ml-0"><span>Elab</span></div>
+    </a>
+    <hr class="sidebar-divider my-0">
+    <ul class="nav navbar-nav text-light w-100 text-center ml-auto " id="accordionSidebar">
+      <li class="nav-item"><a class="nav-link" [routerLink]="['/admin/acceuil']"><i class="fa fa-home"></i> Acceuil</a></li>
+      <li class="nav-item" id="accordion">
+        <a class="nav-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" id="headingOne">
+          <i class="fa fa-users"></i> Utilisateurs</a>
+        <ul class="nav-item collapse"  id="collapseOne" aria-labelledby="headingOne">
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/admin/listadmin']" ><i class="fa fa-user" aria-hidden="true"></i> Adminstrateurs</a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/admin/listens']"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Enseignants</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/admin/listeleve"><i class="fa fa-child" aria-hidden="true"></i>Elèves</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/admin/listparent"><i class="fas fa-restroom"></i> Parents</a></li>
+        </ul>
+      </li>
+      <li class="nav-item"><a class="nav-link" routerLink="/admin/calendrier"><i class="fa fa-calendar"></i><span> Calendrier </span></a></li>
+      <li class="nav-item" >
+        <a class="nav-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="headingTwo">
+          <i class="fa fa-book"></i> Cours </a>
+        <ul class="nav-item collapse"  id="collapseTwo" aria-labelledby="headingTwo">
+          <li class="nav-item"><a class="nav-link" routerLink="/admin/listcours"><i class="fa fa-folder-open" aria-hidden="true"></i> Supports du cours </a></li>
+          <li class="nav-item"><a class="nav-link"><i class="fa fa-briefcase" aria-hidden="true"></i> Devoirs </a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item" >
+        <a class="nav-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseOne" id="headinThree">
+          <i class="fas fa-school"></i>Gestion de l'académie </a>
+        <ul class="nav-item collapse"  id="collapseThree" aria-labelledby="headingThree">
+          <li class="nav-item"><a class="nav-link" routerLink="/admin/listmatiere" ><i class="fa fa-tasks" aria-hidden="true"></i> Matières </a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/admin/listgroupe"><i class="bi bi-people-fill"></i> Groupes </a></li>
+
+        </ul>
+      </li>
+
+      <li class="nav-item" >
+        <a class="nav-link" data-toggle="collapse" data-target="#collapseFor" aria-expanded="false" aria-controls="collapseOne" id="headinFor">
+          <i class="fas fa-chalkboard-teacher"></i>Gestion des élèves  </a>
+        <ul class="nav-item collapse"  id="collapseFor" aria-labelledby="headingFor">
+          <li class="nav-item"><a class="nav-link" routerLink="/dashboard/list"><i class="fa fa-sort-numeric-up" aria-hidden="true"></i>Notes </a></li>
+          <li class="nav-item"><a class="nav-link" href=#><i class="fa fa-pen-square" aria-hidden="true"></i> Remarques </a></li>
+
+        </ul>
+      </li>
+      <li class="nav-item" id="accordion1">
+        <a class="nav-link" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseOne" id="headingFive">
+          <i class="fa fa-usd" aria-hidden="true"></i><span> Gestion de financement</span></a>
+        <ul class="nav-item collapse"  id="collapseFive" aria-labelledby="headingFive">
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/admin/comptabilte']" ><i class="fa fa-calculator" aria-hidden="true"></i> Comptabilité</a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/admin/PaiementEnseignant']"><i class="fas fa-euro-sign"></i>Paiement enseignants</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/admin/PaiementEleve"><i class="fab fa-cc-stripe"></i>Paiement élèves</a></li>
+        </ul>
+      </li>
+      <li class="nav-item"><a class="nav-link" href=" "><i class="fa fa-cog"></i><span> Paramétre</span></a></li>
+
+
+    </ul>
+    <div class="text-center d-none d-md-inline">
+      <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+  </div>
+
+</nav>
+
+
+

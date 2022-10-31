@@ -1,0 +1,80 @@
+<div class="container-fluid">
+
+    <div class="row justify-content-center">
+  
+      <div class="col-12 col-lg-10 col-xl-10">
+        <div class="header mt-md-5">
+          <div
+            class="
+              header-body
+              d-flex
+              justify-content-between
+              align-items-center
+              pt-0
+            "
+          >
+            <div class="row align-items-center">
+              <div class="col">
+                <h1 class="header-title text-info ml-auto">Ajouter Remarque</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="card shadow mb-3">
+      <div class="card-header py-3">
+      </div>
+      <div class="card-body">
+  
+        <!-- Form -->
+        <form class="py-6" #form="ngForm">
+          <div class="row justify-content-center">
+            <div class="form-group col-lg-10">
+              <!-- Label -->
+              <label class="form-label ">Objet</label>
+              <!-- Input -->
+              <input type="text" class="form-control" [(ngModel)]="remarque.titre" required/>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="form-group col-lg-10">
+              <!-- Label -->
+              <label class="form-label ">Contenu</label>
+              <!-- Input -->
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="remarque.description" required></textarea>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="form-group col-lg-10">
+              <label class="form-label ">Eleve</label>
+              <select class="form-control" id="exampleFormControlSelect1"  (change)="geteleveid($event.target.value)">
+                <option *ngFor="let e of eleves ; let index = index " [value]="index">{{e.utilisateur.nom}} {{e.utilisateur.prenom}}</option>
+              </select>
+            </div>
+          </div>
+  
+         
+          
+          
+          <div class="btn-group align-items-center justify-content-end float-right">
+            <div class="">
+              <!-- Button -->
+              <button class="btn btn-danger" type="reset">
+                Annuler
+              </button>
+            </div>
+  
+            <div class="col-auto">
+              <!-- Button -->
+              <button class="btn btn-info " [disabled]="!form.touched || !form.valid" (click)="ajoutRemarque()" >Ajouter</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  
+  

@@ -1,0 +1,102 @@
+<button class="btn btn-outline-info mt-3 mb-3 " data-bs-toggle="modal" data-bs-target="#exampleModal" xmlns="http://www.w3.org/1999/html">
+  <i class="fa fa-plus"></i> Ajouter matiere
+</button>
+<button class="btn btn-outline-info mt-3 mb-3 ml-3 " data-bs-toggle="modal" data-bs-target="#exampleModal1" xmlns="http://www.w3.org/1999/html">
+  <i class="fa fa-plus"></i> Ajouter niveau
+</button>
+<div class="card shadow">
+  <div class="card-header py-3">
+    <p class="text-info m-0 font-weight-bold">Liste des matiéres</p>
+  </div>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>N</th>
+    <th>Matiére</th>
+    <th>Niveau</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let mat of matieres; index as i">
+    <td>{{i+1}}</td>
+    <td>{{mat.nommatiere}}</td>
+    <td>{{mat.nomniveau}}</td>
+    <td><i class="fa fa-trash text-info"></i></td>
+  </tr>
+</table>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ajouter Matiére</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]=" form">
+          <div>
+            <label><strong>Matiére</strong></label>
+            <input type="text" class="form-control" [(ngModel)]="matier.nommatiere" formControlName="matiere" required [ngClass]="{
+              'is-valid': form.get('matiere').valid,
+              'is-invalid': form.get('matiere').invalid  && form.get('matiere').touched}"/>
+            <div *ngIf="form.get('matiere').invalid && form.get('matiere').touched"
+                 Class="invalid-feedback">
+            <div *ngIf="form.get('matiere').getError('required')"> Champ obligatoire !!</div>
+            </div>
+          </div>
+          <div>
+            <label><strong>Niveau</strong></label>
+            <input type="text" class="form-control" [(ngModel)]="matier.nomniveau" formControlName="niveau">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-info" data-bs-dismiss="modal" [disabled]="!form.valid|| !form.touched" (click)="ajout()">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Ajouter Niveau</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formn">
+          <div>
+            <label><strong>Matiére</strong></label>
+            <select type="text" class="form-control" [(ngModel)]="matier.nommatiere" formControlName="matieren" required [ngClass]="{
+              'is-valid': formn.get('matieren').valid,
+              'is-invalid': formn.get('matieren').invalid  && formn.get('matieren').touched}">
+              <option *ngFor="let mat of matiere">{{mat}}</option>
+            </select>
+            <div *ngIf="formn.get('matieren').invalid && formn.get('matieren').touched"
+                 Class="invalid-feedback">
+              <div *ngIf="formn.get('matieren').getError('required')"> Champ obligatoire !!</div>
+          </div>
+          </div>
+          <div>
+            <label><strong>Niveau</strong></label>
+            <input type="text" class="form-control" [(ngModel)]="matier.nomniveau" formControlName="niveaun" required [ngClass]="{
+              'is-valid': formn.get('niveaun').valid,
+              'is-invalid': formn.get('niveaun').invalid  && formn.get('niveaun').touched}"/>
+            <div *ngIf="formn.get('niveaun').invalid && formn.get('niveaun').touched"
+                 Class="invalid-feedback">
+              <div *ngIf="formn.get('niveaun').getError('required')"> Champ obligatoire !!</div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-info" data-bs-dismiss="modal" (click)="ajout()" [disabled]="!formn.valid|| formn.untouched">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+
+<div class="container">
+  <full-calendar #calender [options]="calendarOptions" ></full-calendar>
+</div>
+
+
+<p-dialog header="ajout scence " [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
+  <form [formGroup]="evenement">
+    <div class="mb-3">
+      <label class="form-label">titre</label>
+      <input type="text" class="form-control" [ngModel]="sceance" formControlName="title" name="title">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">date</label>
+      <input type="date" class="form-control" [ngModel]="dt | date:'yyyy-MM-dd'" formControlName="date" name="date">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">debut</label>
+      <input type="time" class="form-control" [ngModel]="dt | date:'h:mm'" formControlName="start" name="dabut">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">fin</label>
+      <input type="time" class="form-control" [ngModel]="dt | date:'h:mm'" formControlName="end" name="fin">
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayBasic=false; processForm(evenement)" label="ajouter" styleClass="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="displayBasic=false" label="annuler"></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog header="Modifier" [(visible)]="displayBasic2" [style]="{width: '50vw'}" [baseZIndex]="10000">
+  <form [formGroup]="modifier">
+    <div class="mb-3">
+      <label class="form-label">titre</label>
+      <input type="text" class="form-control" [ngModel] ="titre" formControlName="title">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">date</label>
+      <input type="date" class="form-control" [ngModel] ="dt1 | date:'yyyy-MM-dd'" formControlName="date">
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayBasic2=false" label="Modifier" class="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="displayBasic2=false" label="Annuler"></p-button>
+  </ng-template>
+</p-dialog>
+

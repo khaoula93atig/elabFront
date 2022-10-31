@@ -1,0 +1,37 @@
+<div class="container py-5">
+  <div class="row text-center text-info">
+    <div class="col-lg-8 mx-auto">
+      <h1 class="display-4">Liste de Vos enfants</h1>
+    </div>
+  </div>
+</div><!-- End -->
+
+
+<div class="container">
+  <div class="row text-center justify-content-center">
+
+    <!-- card enfant -->
+    <div class="col-xl-3 col-sm-6 mb-5" *ngFor="let e of enfants">
+      <div class="bg-white rounded shadow-sm py-5 px-4 justify-content-center">
+        <img src="{{e.utilisateur.photo}}" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+        <h5 class="mb-0">{{e.utilisateur.prenom |titlecase}} {{e.utilisateur.nom | titlecase}} </h5><span class="small text-uppercase text-muted">{{e.payer}}</span>
+        <br>
+        <ul class="wrapper mt-3 ml-0 mr-3 justify-content-center">
+          <li class="icon calendar">
+            <span class="tooltip">Calendrier</span>
+            <span><i class="fa fa-calendar"></i></span>
+          </li>
+          <li class="icon calendar">
+            <span class="tooltip">Absence</span>
+            <span><i class="fas fa-id-card-alt"></i></span>
+          </li>
+          <li class="icon calendar">
+            <span class="tooltip">Paiement</span>
+            <span routerLink="/parent/filsdetails/{{e.id}}"><i class="fab fa-cc-stripe"></i></span>
+          </li>
+
+        </ul>
+      </div>
+    </div><!-- End -->
+  </div>
+</div>

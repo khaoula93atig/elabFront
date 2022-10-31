@@ -1,0 +1,68 @@
+<div class="min-vh-100">
+<button class="btn btn-outline-info mt-3 mb-3 " routerLink="/enseignant/ajout-remarque"><i class="fa fa-plus"></i> Ajouter
+    Remarque
+  </button>
+  <div class="card shadow">
+    <div class="card-header py-3">
+      <p class="text-info m-0 font-weight-bold"> Liste des remarques</p>
+    </div>
+    <!--<div class="row justify-content-center">
+    <mat-form-field appearance="fill">
+      <mat-label>choisir un élève</mat-label>
+      <mat-select [(ngModel)]="eleve"  (selectionChange)="getall(eleve,enseignant.id)">
+        <mat-option *ngFor="let e of eleves" [value]="e.id" >{{e.utilisateur.nom}} {{e.utilisateur.prenom}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+      <div class="form-group col-lg-10">
+      <select  class="form-control border-2 border-info"
+        [(ngModel)]="eleve"  (change)="getall(eleve,enseignant.id)">
+        <option  value="" selected="selected">Select un eleve</option>
+        <option *ngFor="let e of eleves" [value]="e.id" >{{e.utilisateur.nom}} {{e.utilisateur.prenom}}</option>
+      </select>
+      </div>
+      </div>-->
+
+
+    <div class="card-body">
+      <div class="">
+        <div class="text-md-right dataTables_filter" id="dataTable_filter">
+          <mat-form-field appearance="fill">
+            <mat-label>choisir un élève</mat-label>
+            <mat-select [(ngModel)]="eleve"  (selectionChange)="getall(eleve,enseignant.id)">
+              <mat-option *ngFor="let e of eleves" [value]="e.id" >{{e.utilisateur.nom}} {{e.utilisateur.prenom}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!--<label><input type="search"
+                                                                                         class="form-control form-control-sm"
+                                                                                         aria-controls="dataTable"
+                                                                                         placeholder="Search"></label>-->
+        </div>
+      </div>
+
+      <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+        <table class="table my-0" id="dataTable">
+          <thead>
+          <tr>
+            <th>Objet</th>
+            <th>Contenu</th>
+            <th *ngIf="afficher==true">élève</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let r of remarques;  let index = index">
+            <td>{{r.titre}}</td>
+            <td>{{r.description}}</td>
+            <td *ngIf="afficher==true">{{r.eleve.utilisateur.nom}} {{r.eleve.utilisateur.prenom}}</td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+

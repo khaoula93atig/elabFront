@@ -1,0 +1,191 @@
+
+<div class="mt-3 my-ng-fullcalendar">
+  <full-calendar class="test" [options]="calendarOptions" ></full-calendar>
+</div>
+
+
+<p-dialog header="Ajouter une Séance " [(visible)]="displayBasic" [style]="{width: '50vw'}" styleClass="header" [draggable]="false" [modal]="true" [resizable]="false" [baseZIndex]="10000">
+  <form [formGroup]="ajoutFormation">
+    <div class="mb-3">
+      <label class="form-label">titre</label>
+      <input type="text" class="form-control" formControlName="nom" name="title" [ngClass]="{
+              'is-valid': ajoutFormation.get('nom').valid,
+              'is-invalid': ajoutFormation.get('nom').invalid  && ajoutFormation.get('nom').touched}">
+      <div *ngIf="ajoutFormation.get('nom').invalid && ajoutFormation.get('nom').touched"
+           Class="invalid-feedback">
+        <div *ngIf="ajoutFormation.get('nom').getError('required')">champs obligatoire!</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">lien</label>
+      <input type="text" class="form-control" formControlName="lien" name="lien" [ngClass]="{
+              'is-valid': ajoutFormation.get('lien').valid,
+              'is-invalid': ajoutFormation.get('lien').invalid  && ajoutFormation.get('lien').touched}">
+      <div *ngIf="ajoutFormation.get('lien').invalid && ajoutFormation.get('lien').touched"
+           Class="invalid-feedback">
+        <div *ngIf="ajoutFormation.get('lien').getError('required')">champs obligatoire!</div>
+      </div>
+    </div>
+    <div class="row">
+    <div class="mb-3 col-lg-6">
+    <label class="form-label">Groupe</label>
+      <select class="form-control" id="exampleFormControlSelect3" (change)="getensgroupe($event.target.value)" formControlName="groupe" [ngClass]="{
+              'is-valid': ajoutFormation.get('groupe').valid,
+              'is-invalid': ajoutFormation.get('groupe').invalid  && ajoutFormation.get('groupe').touched}">
+        <option *ngFor="let groupe of groupes; let i = index " [value]="i" >{{groupe.nom}}</option>
+      </select>
+      <div *ngIf="ajoutFormation.get('groupe').invalid && ajoutFormation.get('groupe').touched"
+           Class="invalid-feedback">
+        <div *ngIf="ajoutFormation.get('groupe').getError('required')">champs obligatoire!</div>
+      </div>
+
+      <div *ngIf="testGroupe != null">
+      <p *ngIf="testGroupe.max==1" class="text-info ml-2">Groupe indiv </p>
+      <p *ngIf="testGroupe.max>1" class="text-info ml-2">Groupe intellectif </p>
+      </div>
+    </div>
+      <div class="mb-3 col-lg-6" *ngIf="testGroupe.id != null">
+        <label class="form-label">Enseignant</label>
+        <select class="form-control" id="exampleFormControlSelect2" [(ngModel)]="enseignant" formControlName="enseignant" [ngClass]="{
+              'is-valid': ajoutFormation.get('enseignant').valid,
+              'is-invalid': ajoutFormation.get('enseignant').invalid  && ajoutFormation.get('enseignant').touched}">
+          <option *ngFor="let ens of ensGroupr ; let i=index" [value]="i">{{ens.utilisateur.nom}} {{ens.utilisateur.prenom}} </option>
+        </select>
+        <div *ngIf="ajoutFormation.get('enseignant').invalid && ajoutFormation.get('enseignant').touched"
+             Class="invalid-feedback">
+          <div *ngIf="ajoutFormation.get('enseignant').getError('required')">champs obligatoire!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">date</label>
+      <input type="date" class="form-control" [ngModel]="dt | date:'yyyy-MM-dd'" formControlName="date" >
+    </div>
+    <div class="row">
+    <div class="mb-3 col-lg-6">
+      <label class="form-label">debut</label>
+      <input type="time" class="form-control"  formControlName="heuredebut" name="heuredebut" [ngClass]="{
+              'is-valid': ajoutFormation.get('heuredebut').valid,
+              'is-invalid': ajoutFormation.get('heuredebut').invalid  && ajoutFormation.get('heuredebut').touched}">
+      <div *ngIf="ajoutFormation.get('heuredebut').invalid && ajoutFormation.get('heuredebut').touched"
+           Class="invalid-feedback">
+        <div *ngIf="ajoutFormation.get('heuredebut').getError('required')">champs obligatoire!</div>
+      </div>
+    </div>
+    <div class="mb-3 col-lg-6">
+      <label class="form-label">fin</label>
+      <input type="time" class="form-control" formControlName="heurefin" name="heurefin" [ngClass]="{
+              'is-valid': ajoutFormation.get('heurefin').valid,
+              'is-invalid': ajoutFormation.get('heurefin').invalid  && ajoutFormation.get('heurefin').touched}">
+      <div *ngIf="ajoutFormation.get('heurefin').invalid && ajoutFormation.get('heurefin').touched"
+           Class="invalid-feedback">
+        <div *ngIf="ajoutFormation.get('heurefin').getError('required')">champs obligatoire!</div>
+      </div>
+    </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <button (click)="displayBasic=false; processForm()" class="btn btn-info" [disabled]="ajoutFormation.untouched || !ajoutFormation.valid">Ajouter</button>
+    <button (click)="displayBasic=false"  class="btn btn-danger">Annuler</button>
+  </ng-template>
+</p-dialog>
+
+
+<!-- formulaire du modification      ********        ************           -->
+
+<p-dialog header="Modifier" [(visible)]="displayBasic2" styleClass="header" [draggable]="false" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000">
+  <form [formGroup]="modifier">
+    <div class="mb-3">
+      <label class="form-label">titre</label>
+      <input type="text" class="form-control" formControlName="nom" [(ngModel)]="titre" [ngClass]="{
+              'is-valid': modifier.get('nom').valid,
+              'is-invalid': modifier.get('nom').invalid  && modifier.get('nom').touched}">
+      <div *ngIf="modifier.get('nom').invalid && modifier.get('nom').touched"
+           Class="invalid-feedback">
+        <div *ngIf="modifier.get('nom').getError('required')">champs obligatoire!</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">lien</label>
+      <input type="text" class="form-control" formControlName="lien" [(ngModel)]="lien" [ngClass]="{
+              'is-valid': modifier.get('lien').valid,
+              'is-invalid': modifier.get('lien').invalid  && modifier.get('lien').touched}">
+      <div *ngIf="modifier.get('lien').invalid && modifier.get('lien').touched"
+           Class="invalid-feedback">
+        <div *ngIf="modifier.get('lien').getError('required')">champs obligatoire!</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mb-3 col-lg-6">
+        <label class="form-label">Groupe</label>
+        <select class="form-control" id="exampleFormControlSelect4" [(ngModel)]="groupeid"
+                (change)="getensgroupe($event.target.value); afficher()" formControlName="groupe" [ngClass]="{
+              'is-valid': modifier.get('groupe').valid,
+              'is-invalid': modifier.get('groupe').invalid  && modifier.get('groupe').touched}">
+          <option *ngFor="let groupe of groupes; let i = index " [value]="i" >{{groupe.nom}}</option>
+        </select>
+        <div *ngIf="modifier.get('groupe').invalid && modifier.get('groupe').touched"
+             Class="invalid-feedback">
+          <div *ngIf="modifier.get('groupe').getError('required')">champs obligatoire!</div>
+        </div>
+
+        <div *ngIf="testGroupe != null">
+          <p *ngIf="testGroupe.max==1" class="text-info ml-2">Groupe indiv </p>
+          <p *ngIf="testGroupe.max>1" class="text-info ml-2">Groupe intellectif </p>
+        </div>
+      </div>
+      <div class="mb-3 col-lg-6" *ngIf="testGroupe.nom != null && modifierens==false">
+        <label class="form-label">Enseignant</label>
+        <br>
+        <p>{{ensaignantformation?.utilisateur.nom | titlecase}} {{ensaignantformation?.utilisateur.prenom | titlecase}}</p>
+      </div>
+      <div class="mb-3 col-lg-6" *ngIf="modifierens==true">
+        <label class="form-label">Enseignant</label>
+        <select class="form-control" id="exampleFormControlSelect5" [(ngModel)]="enseignant" formControlName="enseignant" [ngClass]="{
+              'is-valid': modifier.get('enseignant').valid,
+              'is-invalid': modifier.get('enseignant').invalid  && ajoutFormation.get('enseignant').touched}">
+          <option *ngFor="let ens of ensGroupr ; let i=index" [value]="i">{{ens.utilisateur.nom}} {{ens.utilisateur.prenom}} </option>
+        </select>
+        <div *ngIf="modifier.get('enseignant').invalid && modifier.get('enseignant').touched"
+             Class="invalid-feedback">
+          <div *ngIf="modifier.get('enseignant').getError('required')">champs obligatoire!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">date</label>
+      <input type="date" class="form-control" [ngModel]="dt1 | date:'yyyy-MM-dd'" formControlName="date" >
+    </div>
+    <div class="row">
+      <div class="mb-3 col-lg-6">
+        <label class="form-label">debut</label>
+        <input type="time" class="form-control"  formControlName="heuredebut" [(ngModel)]="debut" [ngClass]="{
+              'is-valid': modifier.get('heuredebut').valid,
+              'is-invalid': modifier.get('heuredebut').invalid  && modifier.get('heuredebut').touched}">
+        <div *ngIf="modifier.get('heuredebut').invalid && modifier.get('heuredebut').touched"
+             Class="invalid-feedback">
+          <div *ngIf="modifier.get('heuredebut').getError('required')">champs obligatoire!</div>
+        </div>
+      </div>
+      <div class="mb-3 col-lg-6">
+        <label class="form-label">fin</label>
+        <input type="time" class="form-control" formControlName="heurefin" [(ngModel)]="fin" [ngClass]="{
+              'is-valid': modifier.get('heurefin').valid,
+              'is-invalid': modifier.get('heurefin').invalid  && modifier.get('heurefin').touched}">
+        <div *ngIf="modifier.get('heurefin').invalid && modifier.get('heurefin').touched"
+             Class="invalid-feedback">
+          <div *ngIf="modifier.get('heurefin').getError('required')">champs obligatoire!</div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <button (click)="displayBasic=false; modifierfromation()" class="btn btn-info" [disabled]="modifier.untouched || !modifier.valid">Modifier</button>
+    <button (click)="displayBasic=false"  class="btn btn-danger">Annuler</button>
+  </ng-template>
+</p-dialog>
+
